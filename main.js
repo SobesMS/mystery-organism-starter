@@ -6,11 +6,11 @@ const returnRandBase = () => {
 
 // Returns a random single strand of DNA containing 15 bases
 const mockUpStrand = () => {
-  const newStrand = [];
+  const newBase = [];
   for (let i = 0; i < 15; i++) {
-    newStrand.push(returnRandBase());
+    newBase.push(returnRandBase());
   }
-  return newStrand;
+  return newBase;
 };
 
 // creates a new organism
@@ -19,7 +19,12 @@ function pAequorFactory(num, dnaArray) {
     _specimenNum: num, 
     _dna: dnaArray,
     mutate() {
-      this._dna.push(returnRandBase());
+      const randomBase = Math.floor(Math.random() * 15);
+      let newBase = this._dna[randomBase];
+      while (this._dna[randomBase] === newBase) {
+        newBase = returnRandBase();
+      }
+      this._dna[randomBase] = newBase;
     },
     compareDNA(pAequor) {
       let commonDnaCount = 0;
